@@ -1,0 +1,70 @@
+services:
+  qbittorrent:
+    image: ghcr.io/hotio/qbittorrent:latest
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Bogota
+    volumes:
+      - /opt/docker/media/qbittorrent/config:/config
+      - /media/plex/descargas:/media/descargas
+    restart: unless-stopped
+
+  radarr:
+    image: ghcr.io/hotio/radarr:latest
+    container_name: radarr
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Bogota
+    volumes:
+      - /opt/docker/media/radarr/config:/config
+      - /media/plex/peliculas:/media/peliculas
+      - /media/plex/descargas:/media/descargas
+    restart: unless-stopped
+
+  sonarr:
+    image: ghcr.io/hotio/sonarr:latest
+    container_name: sonarr
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Bogota
+    volumes:
+      - /opt/docker/media/sonarr/config:/config
+      - /media/plex/series:/media/series
+      - /media/plex/descargas:/media/descargas
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:1.9.2
+    network_mode: host
+    environment:
+      - TZ=America/Bogota
+    volumes:
+      - /opt/docker/media/jellyseerr/config:/app/config
+    restart: unless-stopped
+
+  prowlarr:
+    image: ghcr.io/hotio/prowlarr:latest
+    container_name: prowlarr
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Bogota
+    volumes:
+      - /opt/docker/media/prowlarr/config:/config
+    restart: unless-stopped
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    network_mode: host
+    environment:
+      - TZ=America/Bogota
+      - LOG_LEVEL=info
+    restart: unless-stopped

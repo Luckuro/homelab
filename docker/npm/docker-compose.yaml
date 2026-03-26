@@ -1,0 +1,9 @@
+services:
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: npm
+    network_mode: host
+    volumes:
+      - /opt/docker/npm/data:/data
+      - /opt/docker/npm/letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
